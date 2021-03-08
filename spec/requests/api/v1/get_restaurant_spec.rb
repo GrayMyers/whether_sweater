@@ -7,19 +7,38 @@ describe 'Get restaurant request' do
       start_place = "denver,co"
       food = "burger"
 
-      json_response = File.read("spec/fixtures/get_forecast_spec/geocode.json")
-      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=#{place}")
-        .to_return(status: 200, body: json_response)
-
-      json_response = File.read("spec/fixtures/get_restaurant_spec/yelp_search.json")
-      stub_request(:get, "https://api.yelp.com/v3/businesses/search?term=#{food}&location=#{place}")
-        .to_return(status: 200, body: json_response)
-
       json_response = File.read("spec/fixtures/get_restaurant_spec/mapquest_directions.json")
       stub_request(:get, "http://www.mapquestapi.com/directions/v2/route?key=#{ENV["MAPQUEST_KEY"]}&from=#{start_place}&to=#{place}")
         .to_return(status: 200, body: json_response)
 
-      get "/api/v1/munchies?start=#{start_place}&destination=pueblo,co&food=#{food}"
+      arrival_time = 12031929310293
+      #https://api.yelp.com/v3/businesses/search?location=pueblo,co&open_at=12031929310293?term=burger
+      json_response = File.read("spec/fixtures/get_restaurant_spec/yelp_search.json")
+      stub_request(:get, "https://api.yelp.com/v3/businesses/search?location=pueblo,co&open_at=12031929310293&term=burger")
+        .with(
+           headers: {
+          'Accept'=>'*/*',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>"Bearer #{ENV["YELP_KEY"]}",
+          'User-Agent'=>'Faraday v1.3.0'
+           })
+        .to_return(status: 200, body: json_response)
+
+      json_response = File.read("spec/fixtures/get_forecast_spec/geocode.json")
+      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=#{place}")
+        .to_return(status: 200, body: json_response)
+
+      json_response = File.read("spec/fixtures/get_forecast_spec/geocode.json")
+      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=#{start_place}")
+        .to_return(status: 200, body: json_response)
+
+      coords = GeocodeFacade.get_position(place)
+
+      json_response = File.read("spec/fixtures/get_forecast_spec/forecast.json")
+      stub_request(:get, "https://api.openweathermap.org/data/2.5/onecall?appid=#{ENV["OPENWEATHER_KEY"]}&lat=#{coords.lat}&lon=#{coords.lon}")
+        .to_return(status: 200, body: json_response)
+
+      get "/api/v1/munchies?start=#{start_place}&destination=#{place}&food=#{food}"
 
       expect(response).to be_successful
       expect(response.status).to eq(200)

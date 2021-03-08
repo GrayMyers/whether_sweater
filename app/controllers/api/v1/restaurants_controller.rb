@@ -8,6 +8,7 @@ class Api::V1::RestaurantsController < ApplicationController
     end
     parsed_directions = parse(directions)
     travel_time = parsed_directions[:route][:time]
+    formatted_time = Time.at(travel_time).utc.strftime("%k hours %M minutes")
     arrival_time = Time.now.to_i + travel_time
 
     yelp_conn = Faraday.new("https://api.yelp.com")
@@ -18,9 +19,13 @@ class Api::V1::RestaurantsController < ApplicationController
       req.headers[:Authorization] = "Bearer #{ENV["YELP_KEY"]}"
     end
     parsed_search = parse(search)
-    
+    city_state = parsed_search[:businesses][0][:location][:city] + ", " + parsed_search[:businesses][0][:location][:state]
+
     name = parsed_search[:businesses][0][:name]
     address = parsed_search[:businesses][0][:location][:display_address] * ", "
+
+    coords = GeocodeFacade.get_position(params[:start])
+    weather = WeatherFacade.get_weather(coords)
   end
 
   private
