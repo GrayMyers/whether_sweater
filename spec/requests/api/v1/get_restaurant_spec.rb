@@ -5,6 +5,7 @@ describe 'Get restaurant request' do
     it "returns formatted data" do
       place = "pueblo,co"
       start_place = "denver,co"
+      food = "burger"
 
       json_response = File.read("spec/fixtures/get_forecast_spec/geocode.json")
       stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=#{place}")
@@ -31,7 +32,7 @@ describe 'Get restaurant request' do
 
       expect(parsed[:data][:attributes]).to be_a Hash
       expect(parsed[:data][:attributes][:destination_city]).to eq("Pueblo, CO")
-      expect(parsed[:data][:attributes][:travel_time]).to eq("1 hours 48 min")
+      expect(parsed[:data][:attributes][:travel_time]).to eq("1 hours 44 min")
 
       expect(parsed[:data][:attributes][:forecast]).to be_a Hash
       expect(parsed[:data][:attributes][:forecast][:summary]).to be_a String
