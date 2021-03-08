@@ -31,6 +31,6 @@ describe "geocode facade" do
 
     expect(travel_time).to be_a TravelTime
     expect(travel_time.arrival_time).to eq(Time.now.to_i + travel_time.travel_time)
-    expect(travel_time.formatted_time).to eq(" 1 hours 44 minutes")
+    expect(travel_time.formatted_time).to eq(" 1 hours 44 min")
   end
 end
