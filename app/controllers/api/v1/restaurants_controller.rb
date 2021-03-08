@@ -12,10 +12,4 @@ class Api::V1::RestaurantsController < ApplicationController
 
     render json: MunchieSerializer.new(munchie)
   end
-
-  private
-
-  def parse(thing)
-    JSON.parse(thing.body, symbolize_names: true)
-  end
 end
