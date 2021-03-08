@@ -11,7 +11,7 @@ describe 'Get restaurant request' do
       stub_request(:get, "http://www.mapquestapi.com/directions/v2/route?key=#{ENV["MAPQUEST_KEY"]}&from=#{start_place}&to=#{place}")
         .to_return(status: 200, body: json_response)
 
-      arrival_time = 12031929310293
+      arrival_time = GeocodeService.get_travel_time(start_place,place)
       #https://api.yelp.com/v3/businesses/search?location=pueblo,co&open_at=12031929310293?term=burger
       json_response = File.read("spec/fixtures/get_restaurant_spec/yelp_search.json")
       stub_request(:get, "https://api.yelp.com/v3/businesses/search?location=pueblo,co&open_at=12031929310293&term=burger")
