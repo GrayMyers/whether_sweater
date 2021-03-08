@@ -8,7 +8,7 @@ describe 'Get restaurant request' do
       food = "burger"
 
       json_response = File.read("spec/fixtures/get_forecast_spec/geocode.json")
-      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=denver,co")
+      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=#{start_place}")
         .to_return(status: 200, body: json_response)
 
       json_response = File.read("spec/fixtures/get_restaurant_spec/mapquest_directions.json")
@@ -18,7 +18,7 @@ describe 'Get restaurant request' do
       travel_time = GeocodeFacade.get_travel_time(start_place,place)
       #https://api.yelp.com/v3/businesses/search?location=pueblo,co&open_at=12031929310293?term=burger
       json_response = File.read("spec/fixtures/get_restaurant_spec/yelp_search.json")
-      stub_request(:get, "https://api.yelp.com/v3/businesses/search?categories=bars,restaurants&location=pueblo,co&open_at=#{travel_time.arrival_time}&term=burger")
+      stub_request(:get, "https://api.yelp.com/v3/businesses/search?categories=bars,restaurants&location=#{place}&open_at=#{travel_time.arrival_time}&term=burger")
          .with(
            headers: {
           'Accept'=>'*/*',
@@ -51,11 +51,11 @@ describe 'Get restaurant request' do
 
       expect(parsed[:data][:attributes]).to be_a Hash
       expect(parsed[:data][:attributes][:destination_city]).to eq("Pueblo, CO")
-      expect(parsed[:data][:attributes][:travel_time]).to eq(" 1 hours 44 min")
+      expect(parsed[:data][:attributes][:travel_time]).to eq("1 hours 44 min")
 
       expect(parsed[:data][:attributes][:forecast]).to be_a Hash
       expect(parsed[:data][:attributes][:forecast][:summary]).to be_a String
-      expect(parsed[:data][:attributes][:forecast][:temperature]).to be_a Numeric
+      expect(parsed[:data][:attributes][:forecast][:temperature]).to be_a String
 
       expect(parsed[:data][:attributes][:restaurant]).to be_a Hash
       expect(parsed[:data][:attributes][:restaurant][:name]).to eq("Bingo Burger")

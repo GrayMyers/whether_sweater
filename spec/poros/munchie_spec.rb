@@ -35,7 +35,7 @@ describe Munchie do
     expect(munchie.restaurant).to eq({name: restaurant.name, address: restaurant.address})
     hourly = forecast.hourly_weather[1]
     expected_forecast = {
-      temperature: 49.658,
+      temperature: "49",
       summary: hourly[:conditions]
     }
     expect(munchie.forecast).to eq(expected_forecast)

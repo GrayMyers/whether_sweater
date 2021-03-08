@@ -6,7 +6,7 @@ class Munchie
     hourly = forecast.hourly_weather[travel_time.travel_time/3600]
     @forecast = {
       summary: hourly[:conditions],
-      temperature: kelvin_to_fahrenheit(hourly[:temperature])
+      temperature: kelvin_to_fahrenheit(hourly[:temperature]).floor.to_s
     }
     @restaurant = {
       name: restaurant.name,
