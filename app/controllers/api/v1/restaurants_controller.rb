@@ -8,8 +8,7 @@ class Api::V1::RestaurantsController < ApplicationController
     end
     parsed_directions = parse(directions)
     travel_time = parsed_directions[:route][:time]
-    formatted_time = Time.at(travel_time).utc.strftime("%k hours %M minutes")
-    arrival_time = Time.now.to_i + travel_time
+
 
     yelp_conn = Faraday.new("https://api.yelp.com")
     search = yelp_conn.get("/v3/businesses/search") do |req|
