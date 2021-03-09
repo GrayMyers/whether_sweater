@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe 'Get forecast request' do
+describe 'Get forecast request', type: :request do
   describe '(happy path)' do
     it "contains the expected response" do
 

@@ -16,6 +16,6 @@ describe "geocode facade" do
     stub_request(:get, "https://api.openweathermap.org/data/2.5/onecall?appid=#{ENV["OPENWEATHER_KEY"]}&lat=#{@coords.lat}&lon=#{@coords.lon}")
       .to_return(status: 200, body: json_response)
 
-
+    expect(@coords).to be_a Location
   end
 end
