@@ -15,11 +15,17 @@ describe "Create a new user ",type: :request do
       post "/api/v1/users", params: payload.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
 
       expect(response).to be_successful
+      expect(response.status).to eq(201)
+
+      parsed = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed[:data][:type]).to eq("users")
+      expect(parsed[:data][:attributes][:email]).to eq(email)
+      expect(parsed[:data][:attributes][:api_key]).to be_a String
     end
   end
 
   describe "(sad path)" do
-    it "should fail with a 404 bad request error if non json format is sent" do
+    it "should fail with a 404 bad request error if no body format is sent" do
       email = "me@example.com"
       password = "IWillNeverGetHacked123"
 
