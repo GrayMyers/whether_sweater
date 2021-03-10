@@ -73,19 +73,13 @@ describe 'Get forecast request', type: :request do
       stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}")
         .to_return(status: 200, body: json_response)
 
-      coords = GeocodeFacade.get_position(place)
-
-      json_response = File.read("spec/fixtures/get_forecast_spec/forecast.json")
-      stub_request(:get, "https://api.openweathermap.org/data/2.5/onecall?appid=#{ENV["OPENWEATHER_KEY"]}&lat=#{coords.lat}&lon=#{coords.lon}")
-        .to_return(status: 200, body: json_response)
-
-      get "/api/v1/forecast?location=#{place}"
+      get "/api/v1/forecast?location="
       parsed = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
 
-      expect(parsed[:error]).to eq("bad request")
+      expect(parsed[:error]).to eq("invalid location")
     end
   end
 end

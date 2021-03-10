@@ -16,4 +16,10 @@ class ApplicationController < ActionController::API
   def return_404
     render json: {error: "bad request"}, status: 404
   end
+
+  def check_location
+    if !params[:location] || params[:location] == ""
+      render json: {error: "invalid location"}, status: 404
+    end
+  end
 end
