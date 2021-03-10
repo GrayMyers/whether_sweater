@@ -24,8 +24,8 @@ class Weather
       datetime: Time.at(current_data[:dt]).to_datetime.to_s,
       sunrise: Time.at(current_data[:sunrise]).to_s,
       sunset: Time.at(current_data[:sunset]).to_s,
-      temperature: current_data[:temp],
-      feels_like: current_data[:feels_like],
+      temperature: Temperature.new(current_data[:temp]).fahrenheit,
+      feels_like: Temperature.new(current_data[:feels_like]).fahrenheit,
       humidity: current_data[:humidity],
       uvi: current_data[:uvi],
       visibility: current_data[:visibility],
@@ -40,8 +40,8 @@ class Weather
         date: Time.at(data[:dt]).to_date.to_s,
         sunrise: Time.at(data[:sunrise]).to_s,
         sunset: Time.at(data[:sunset]).to_s,
-        min_temp: data[:temp][:min],
-        max_temp: data[:temp][:max],
+        min_temp: Temperature.new(data[:temp][:min]).fahrenheit,
+        max_temp: Temperature.new(data[:temp][:max]).fahrenheit,
         conditions: data[:weather][0][:description],
         icon: data[:weather][0][:icon]
       }
@@ -52,7 +52,7 @@ class Weather
     hourly_data.map do |data|
       {
         time: Time.at(data[:dt]).to_s,
-        temperature: data[:temp],
+        temperature: Temperature.new(data[:temp]).fahrenheit,
         conditions: data[:weather][0][:description],
         icon: data[:weather][0][:icon]
       }

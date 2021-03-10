@@ -8,7 +8,7 @@ describe Forecast do
     hours = 40
     weather = Forecast.new(DATA,40) #DATA comes from the fixture file
     expect(weather).to be_a Forecast
-    expect(weather.temperature).to eq(289.93)
+    expect(weather.temperature).to eq(62.20400000000005)
     expect(weather.conditions).to eq("scattered clouds")
   end
 

@@ -44,7 +44,7 @@ describe "User login", type: :request do
         :end_city=>"pueblo",
         :travel_time=>"1 hours 44 min",
         :weather_at_eta=>{
-          :temperature=>282.96,
+          :temperature=>49.658,
           :conditions=>"broken clouds"
           }
         }
