@@ -18,9 +18,5 @@ describe ImageFacade do
         expect(image).to be_an Image
       end
     end
-
-    describe "sad_path" do
-
-    end
   end
 end

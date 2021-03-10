@@ -67,6 +67,19 @@ describe 'Get forecast request', type: :request do
   end
 
   describe "(sad path)" do
+    it "returns a 404 if no location is given" do
 
+      json_response = File.read("spec/fixtures/get_forecast_spec/bad_geocode.json")
+      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}")
+        .to_return(status: 200, body: json_response)
+
+      get "/api/v1/forecast?location="
+      parsed = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
+      expect(parsed[:errors]).to eq(["invalid location"])
+    end
   end
 end

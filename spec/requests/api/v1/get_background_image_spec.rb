@@ -37,6 +37,21 @@ describe 'Get background image request', type: :request do
   end
 
   describe "(sad path)" do
+    it "returns a 404 when invalid location is provided" do
+      location = ""
 
+      json_response = File.read('./spec/fixtures/get_forecast_spec/geocode.json')
+      stub_request(:get, "http://www.mapquestapi.com/geocoding/v1/address?key=#{ENV["MAPQUEST_KEY"]}&location=#{location}")
+         .to_return(status: 200, body: json_response)
+
+      get "/api/v1/backgrounds?location="
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
+      parsed = JSON.parse(response.body, symbolize_names: true)
+
+      expect(parsed[:errors]).to eq(["invalid location"])
+    end
   end
 end

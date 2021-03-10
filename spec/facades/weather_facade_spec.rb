@@ -48,9 +48,5 @@ describe "weather facade" do
         expect(weather).to be_a Forecast
       end
     end
-
-    describe "(sad path)" do
-
-    end
   end
 end

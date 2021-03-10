@@ -32,7 +32,8 @@ describe "Create a new user ",type: :request do
       post "/api/v1/users?email=#{email}&password=#{password}&password_confirmation=#{password}"
 
       expect(response.status).to eq(404)
-      expect(response.body).to eq("{\"error\":\"bad request\"}")
+      parsed = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed[:errors]).to eq(["bad request"])
     end
 
     it "should fail with a 400 containing appropriate errors if bad credentials are passed" do
