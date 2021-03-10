@@ -18,4 +18,17 @@ describe "geocode facade" do
 
     expect(@coords).to be_a Location
   end
+
+  it "get_travel_time" do
+    start_place = "denver,co"
+    place = "pueblo,co"
+
+    json_response = File.read("spec/fixtures/road_trip_spec/mapquest_directions.json")
+    stub_request(:get, "http://www.mapquestapi.com/directions/v2/route?key=#{ENV["MAPQUEST_KEY"]}&from=#{start_place}&to=#{place}")
+      .to_return(status: 200, body: json_response)
+
+    travel_time = GeocodeFacade.get_travel_time(start_place, place)
+
+    expect(travel_time).to be_a TravelTime
+  end
 end

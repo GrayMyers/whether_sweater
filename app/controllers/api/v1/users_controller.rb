@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   def create
-    body = JSON.parse(request.body.read, symbolize_headers: true).symbolize_keys
+    body = json_body
 
     user = User.new(email: body[:email], password: body[:password], password_confirmation: body[:password_confirmation])
     if user.save
