@@ -9,7 +9,7 @@ class Api::V1::RoadTripsController < ApplicationController
     if road_trip.save
       render_successful_road_trip(road_trip)
     else
-      render json:{errors: road_trip.errors.full_messages.uniq}, status: 400
+      render_error(road_trip.errors.full_messages.uniq, 400)
     end
   end
 
@@ -19,7 +19,7 @@ class Api::V1::RoadTripsController < ApplicationController
     body = json_body
     token = json_body[:api_key]
     if !validate_token(token)
-      render json: {error: "invalid authentication"}, status: 401
+      render_error(["invalid authentication"], 401)
     end
   end
 

@@ -7,7 +7,7 @@ class Api::V1::SessionsController < ApplicationController
       token = JsonWebToken.encode(user_id: user.id)
       render json: UsersSerializer.new(user, {params: {api_token: token}})
     else
-      render json: {error: "bad credentials"}, status: 401
+      render_error(["bad credentials"],401)
     end
   end
 end

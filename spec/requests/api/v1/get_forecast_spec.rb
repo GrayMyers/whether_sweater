@@ -79,7 +79,7 @@ describe 'Get forecast request', type: :request do
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
 
-      expect(parsed[:error]).to eq("invalid location")
+      expect(parsed[:errors]).to eq(["invalid location"])
     end
   end
 end

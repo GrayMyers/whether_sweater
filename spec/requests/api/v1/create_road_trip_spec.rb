@@ -90,7 +90,7 @@ describe "User login", type: :request do
       expect(response.status).to eq(401)
 
       parsed = JSON.parse(response.body, symbolize_names: true)
-      expect(parsed[:error]).to eq("invalid authentication")
+      expect(parsed[:errors]).to eq(["invalid authentication"])
     end
 
     it "returns a 400 error if invalid road trip info" do

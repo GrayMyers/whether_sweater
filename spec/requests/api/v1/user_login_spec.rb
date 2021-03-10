@@ -35,7 +35,8 @@ describe "User login", type: :request do
       post "/api/v1/users?email=#{email}&password=#{password}&password_confirmation=#{password}"
 
       expect(response.status).to eq(404)
-      expect(response.body).to eq("{\"error\":\"bad request\"}")
+      parsed = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed[:errors]).to eq(["bad request"])
     end
 
     it "should fail with a 401 containing appropriate errors if bad credentials are passed" do
@@ -58,13 +59,13 @@ describe "User login", type: :request do
       expect(response.status).to eq(401)
 
       parsed = JSON.parse(response.body, symbolize_names: true)
-      expect(parsed[:error]).to eq("bad credentials")
+      expect(parsed[:errors]).to eq(["bad credentials"])
 
       post "/api/v1/sessions", params: blank_credentials_payload.to_json, headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
       expect(response.status).to eq(401)
 
       parsed = JSON.parse(response.body, symbolize_names: true)
-      expect(parsed[:error]).to eq("bad credentials")
+      expect(parsed[:errors]).to eq(["bad credentials"])
     end
   end
 end

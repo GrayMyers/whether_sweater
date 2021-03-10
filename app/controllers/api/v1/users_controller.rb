@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: user.id)
       render json: UsersSerializer.new(user, {params: {api_token: token}}), status: 201
     else
-      render json:{errors: user.errors.full_messages.uniq}, status: 400
+      render_error(user.errors.full_messages.uniq,400)
     end
   end
 end
