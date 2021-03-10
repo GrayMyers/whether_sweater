@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
   def create
-    body = JSON.parse(request.body.read, symbolize_headers: true).symbolize_keys
+    body = json_body
 
     user = User.find_by(email: body[:email])
     if user.authenticate(body[:password])

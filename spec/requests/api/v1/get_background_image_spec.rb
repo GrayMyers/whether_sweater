@@ -25,12 +25,13 @@ describe 'Get background image request', type: :request do
       expect(response.status).to eq(200)
 
       parsed = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(parsed[:data][:id]).to eq(nil)
       expect(parsed[:data][:type]).to eq("image")
       expect(parsed[:data][:attributes][:location]).to eq("Denver")
       expect(parsed[:data][:attributes][:image_url]).to eq("https://d13k13wj6adfdf.cloudfront.net/urban_areas/denver_web-9726d88300.jpg")
       expect(parsed[:data][:attributes][:source]).to eq("Flickr")
+      expect(parsed[:data][:attributes][:site]).to eq("Source: Teleport (teleport.org)")
       expect(parsed[:data][:attributes][:author]).to eq("Sheila Sund")
     end
   end

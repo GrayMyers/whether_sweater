@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "/forecast", to: "forecast#get_forecast"
       get "/backgrounds", to: "backgrounds#get_bg_image"
+      post "/road_trip", to: "road_trips#create"
       resources "users", only: [:create]
       resources "sessions", only: [:create]
     end
