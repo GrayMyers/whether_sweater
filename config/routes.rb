@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get "/forecast", to: "forecast#get_forecast"
       get "/backgrounds", to: "backgrounds#get_bg_image"
       resources "users", only: [:create]
+      resources "sessions", only: [:create]
     end
   end
 end
