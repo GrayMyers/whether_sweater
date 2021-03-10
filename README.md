@@ -25,7 +25,7 @@ MAPQUEST_KEY: "[mapquest key here]"
 
 ## Test Suite
 Both automated and manual testing tools are setup for the app.
-* The manual testing suite is available to download as a [postman collection](https://drive.google.com/file/d/1svLREe3gEwvXje1LJ5WXuuOBl8bPCSVB/view?usp=sharing)
+* The manual testing suite is available to download as a [postman collection](https://drive.google.com/file/d/1wMRI17-PMfwsNWKnqO9Cm-9CSCKZJsda/view?usp=sharing)
 * The automated testing suite is included in the app and can be run with `bundle exec rspec` after it has been set up locally.
 
 ## Versioning
