@@ -8,5 +8,9 @@ class WeatherFacade
     def get_forecast_at(location, time)
       Forecast.new(WeatherService.get_forecast(location), time)
     end
+
+    def get_nil_forecast
+      Forecast.new(nil,nil)
+    end
   end
 end

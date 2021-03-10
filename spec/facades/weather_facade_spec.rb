@@ -49,4 +49,16 @@ describe "weather facade" do
       end
     end
   end
+
+  describe "get_nil_forecast" do
+    describe "(happy path)" do
+      it "returns a valid forecast when given proper data" do
+
+
+        weather = WeatherFacade.get_nil_forecast
+
+        expect(weather).to be_a Forecast
+      end
+    end
+  end
 end

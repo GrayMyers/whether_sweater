@@ -12,4 +12,11 @@ describe Forecast do
     expect(weather.conditions).to eq("scattered clouds")
   end
 
+  it "generates a nil forecast when data is absent" do
+    weather = Forecast.new(nil,nil)
+    expect(weather).to be_a Forecast
+    expect(weather.temperature).to eq(nil)
+    expect(weather.conditions).to eq(nil)
+  end
+
 end
