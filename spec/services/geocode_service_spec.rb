@@ -10,8 +10,9 @@ describe GeocodeService do
 
     pos = GeocodeService.get_coords(@place)
 
+    require "pry"; binding.pry
     expect(pos).to be_a Hash
-    expect(pos[:lat]).to be_a Numeric
-    expect(pos[:lng]).to be_a Numeric
+    expect(pos[:lat]).to eq(39.738453)
+    expect(pos[:lng]).to eq(-104.984853)
   end
 end

@@ -19,16 +19,5 @@ describe "geocode facade" do
     weather = WeatherFacade.get_weather(@coords)
 
     expect(weather).to be_a Weather
-
-    expect(weather.current_weather).to be_a Hash
-    expect(weather.current_weather[:datetime]).to be_a String
-
-    expect(weather.daily_weather).to be_a Array
-    expect(weather.daily_weather[0][:date]).to be_a String
-
-    expect(weather.hourly_weather).to be_a Array
-    expect(weather.hourly_weather[0][:time]).to be_a String
-
-
   end
 end
