@@ -10,10 +10,10 @@ describe Weather do
       :temperature=>49.31600000000001,
       :feels_like=>44.24000000000002,
       :humidity=>38,
-     :uvi=>0,
-     :visibility=>10000,
-     :conditions=>"broken clouds",
-     :icon=>"04n"
+      :uvi=>0,
+      :visibility=>10000,
+      :conditions=>"broken clouds",
+      :icon=>"04n"
    }
 
      daily = [
