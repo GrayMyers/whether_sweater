@@ -1,0 +1,16 @@
+language: ruby
+rbenv:
+- 2.5.3
+addons:
+  postgresql: 9.6
+script:
+- bundle exec rails db:{create,migrate} RAILS_ENV=test
+- bundle exec rspec
+deploy:
+  provider: heroku
+  api_key:
+    secure: PeWzV61tdclp92rwoFCDvXVgQCUdEahZyEtOq4dMNfom1eu3gCjTHpMCc03CFeLnAJKoGoDIv8zBEGUlmINC544voOnJl3gmoZQaIAE6fGX2cHPBd8uKEZIunN2LWNvnftw6q0mo/aA2HiGQ0mHospFVNBWkJSdW4MHXixa0L99IrqrT3pAPzSWTAj6UsCnNEk3i1XQGxv7qq2+wmUmpeHDjQ0Hi+vv6SqrL9FzW96tCDv4ylkOXHT+hgsN+5fSti4PGFz9AKxfgFyfEzCuuG8q+ooJsXM8vGe+3tvNV3TOYOniZ6Oz6+2F+Hf74zOCLTEnWQ761VbgGuU4syrBQ8XEBLZ6coF2KFLS8hitAj1GCRO7ZhbjNeNI3Xc3QwS8p9DswKb7M+QGKnUCNvi8Bv+wx6KdoU3JUqCGjKLnH9ZOjDIfEkwnieFgYjdp5W93+tIhc8Mm497BI0z5LMRzz09vyM+QCKZ865IVvTU1i9HL3Nuqj5GKlQyWXIv2JhKOq2O2ODHXoUI373mDSFlRzdbEY8zoAha66oqYyBldLfKSrZIeKptxBmwo6rEpqvpnsBBiPbTJJcSe7Es2ISWNp20lRG0yAI24RG4h31AX1OFd45RTD1XsFS65+mOKc4wOqEIc2W3HRSBVYN9Sndk/kI1pBDdONcGpBiULArpJLPug=
+  app: viuwu-ing-party
+  run: rails db:migrate
+  on:
+    branch: main
