@@ -3,7 +3,7 @@ require "./spec/fixtures/weather_poro_spec/data.rb" #this is an enormous file wh
 describe Weather do
   it "exists and has attributes" do
     weather = Weather.new(DATA) #DATA comes from the above mentioned enormous file
-    current = { #these are hard coded to ensure that no extra data is being sent
+    current = {
       :datetime=>"2021-03-07T20:08:24-07:00",
       :sunrise=>"2021-03-07 06:19:40 -0700",
       :sunset=>"2021-03-07 17:54:28 -0700",
